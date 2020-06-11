@@ -8,7 +8,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Pattern;
 
 import com.anz.codechallenge.models.AccountType;
 import com.anz.codechallenge.models.CurrencyCode;
@@ -19,7 +18,6 @@ public class AccountEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Pattern(regexp = "[0-9]{9}")
 	private String accountNumber;
 	private String accountName;
 	@Enumerated(EnumType.STRING)

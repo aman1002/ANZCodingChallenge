@@ -2,8 +2,6 @@ package com.anz.codechallenge.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import com.anz.codechallenge.exceptions.AccountNotFoundException;
 import com.anz.codechallenge.exceptions.AccountsNotFetchedException;
 import com.anz.codechallenge.models.Account;
 import com.anz.codechallenge.service.AccountServiceImpl;
+import com.anz.codechallenge.validator.AccountValidator;
 
 @RestController
 @RequestMapping("v1/accounts")
@@ -30,7 +29,8 @@ public class AccountController {
 	
 //	API to get account by passing the id as account number
 	@GetMapping(path = "/id")
-	public ResponseEntity<Account> getAccount(@Valid @RequestBody String accountNumber) {
+	public ResponseEntity<Account> getAccount(@RequestBody String accountNumber) throws Exception {
+		AccountValidator.validateAccountNumber(accountNumber);
 		Account account = accountService.getAccount(accountNumber);
 		if (account == null) {
 			log.info("Account Not Found with account number: "+accountNumber);
