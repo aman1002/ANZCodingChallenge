@@ -2,8 +2,6 @@ package com.anz.codechallenge.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.anz.codechallenge.exceptions.TransactionsNotFoundException;
 import com.anz.codechallenge.models.Transaction;
 import com.anz.codechallenge.service.TransactionsServiceImpl;
+import com.anz.codechallenge.validator.AccountValidator;
 
 @RestController
 @RequestMapping("v1/transactions")
@@ -29,7 +28,8 @@ public class TransactionsController {
 	
 //	API to get all the transactions for a particular account number
 	@GetMapping(path = "/id")
-	public ResponseEntity<List<Transaction>> getAccountTransactions(@Valid @RequestBody String accountNumber) {
+	public ResponseEntity<List<Transaction>> getAccountTransactions(@RequestBody String accountNumber) {
+		AccountValidator.validateAccountNumber(accountNumber);
 		List<Transaction> transactionList = transactionService.getAccountTransactions(accountNumber);
 		if (transactionList.isEmpty() || transactionList == null) {
 			log.info("Not Found - transactions on Account Id: "+accountNumber);
