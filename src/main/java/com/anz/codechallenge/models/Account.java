@@ -26,7 +26,7 @@ public class Account {
 		this.currencyCode = currencyCode;
 		this.openingAvailableBalance = openingAvailableBalance;
 	}
-	
+
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -66,8 +66,8 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return "Account [accountNumber=" + accountNumber + ", accountName=" + accountName + ", accountType="
-				+ accountType + ", balanceDate=" + balanceDate + ", currencyCode=" + currencyCode
+		return "Account [accountNumber=" + accountNumber + ", accountName=" + accountName
+				+ ", accountType=" + accountType + ", balanceDate=" + balanceDate + ", currencyCode=" + currencyCode
 				+ ", openingAvailableBalance=" + openingAvailableBalance + "]";
 	}
 

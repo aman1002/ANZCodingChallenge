@@ -57,8 +57,9 @@ public class TestController {
 		ResponseEntity<Account> entity = accountController.getAccount("585309209");
 		assertEquals(entity.getBody(), account);
 		
-		mvc.perform(get("/v1/accounts/585309209")
-				.accept(MediaType.APPLICATION_JSON))
+		mvc.perform(get("/v1/accounts/id")
+				.accept(MediaType.APPLICATION_JSON)
+				.content("585309209"))
 				.andExpect(status().isOk());
 	}
 	
@@ -92,8 +93,9 @@ public class TestController {
 		ResponseEntity<List<Transaction>> listEntity = transactionController.getAccountTransactions("847498496");
 		assertEquals(listEntity.getBody(), list);
 		
-		mvc.perform(get("/v1/transactions/847498496")
-				.accept(MediaType.APPLICATION_JSON))
+		mvc.perform(get("/v1/transactions/id")
+				.accept(MediaType.APPLICATION_JSON)
+				.content("847498496"))
 				.andExpect(status().isOk());
 	}
 	
