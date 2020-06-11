@@ -14,21 +14,24 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
 	
+	static String notFound = "SYS-404";
+	static String internalServerError = "SYS-500";
+	
 	@ExceptionHandler(TransactionsNotFoundException.class)
 	public final ResponseEntity<Object> handleTransactionsNotFoundException(TransactionsNotFoundException ex, WebRequest request) {
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), notFound, ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(AccountNotFoundException.class)
 	public final ResponseEntity<Object> handleAccountNotFoundException(AccountNotFoundException ex, WebRequest request) {
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), notFound, ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(AccountsNotFetchedException.class)
 	public final ResponseEntity<Object> handleAccountsNotFetchedException(AccountsNotFetchedException ex, WebRequest request) {
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), internalServerError, ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

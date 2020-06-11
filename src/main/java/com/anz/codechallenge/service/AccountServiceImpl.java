@@ -32,6 +32,7 @@ public class AccountServiceImpl implements AccountService {
 			accountEntity = accountRepository.findById(accountNumber).get();
 		}
 		catch (Exception ex) {
+			log.info("Account Not Found with account number: "+accountNumber);
 			throw new AccountNotFoundException("Account Not Found with account number: "+accountNumber);
 		}
 
@@ -54,8 +55,10 @@ public class AccountServiceImpl implements AccountService {
 		List<AccountEntity> accountEntityList = new ArrayList<>();
 		accountEntityList = accountRepository.findAll();
 		log.info("The size of accounts entity list is: "+accountEntityList.size());
-		if (accountEntityList.equals(null) || accountEntityList.isEmpty())
-			throw new AccountsNotFetchedException("Can't Fetch Details. Server Error");
+		if (accountEntityList == null || accountEntityList.isEmpty()) {
+			log.info("Can't Fetch Details.");
+			throw new AccountsNotFetchedException("Can't Fetch Details. Internal Server Error");
+		}
 		List<Account> accountList = new ArrayList<>();
 		for(AccountEntity entity : accountEntityList) {
 			Account account = new Account();

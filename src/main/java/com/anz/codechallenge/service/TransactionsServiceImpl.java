@@ -29,8 +29,10 @@ public class TransactionsServiceImpl implements TransactionsService {
 		
 		List<TransactionEntity> transactionEntityList = transactionsRepository.findByAccountNumber(accountNumber);
 		log.info("The size of transactions entity list is: "+transactionEntityList.size());
-		if (transactionEntityList.isEmpty() || transactionEntityList.equals(null))
+		if (transactionEntityList.isEmpty() || transactionEntityList == null) {
+			log.info("Not Found - transactions on Account Number: "+accountNumber);
 			throw new TransactionsNotFoundException("Not Found - transactions on Account Number: "+accountNumber);
+		}
 		List<Transaction> transactionList = new ArrayList<>();
 		for(TransactionEntity entity : transactionEntityList) {
 			Transaction transaction = new Transaction();
@@ -54,8 +56,10 @@ public class TransactionsServiceImpl implements TransactionsService {
 		
 		List<TransactionEntity> transactionEntityList = transactionsRepository.findAll();
 		log.info("The size of transactions entity list is: "+transactionEntityList.size());
-		if (transactionEntityList.isEmpty() || transactionEntityList.equals(null))
+		if (transactionEntityList.isEmpty() || transactionEntityList == null) {
+			log.info("Not Found - no transactions found.");
 			throw new TransactionsNotFoundException("Not Found - no transactions found.");
+		}
 		List<Transaction> transactionList = new ArrayList<>();
 		for(TransactionEntity entity : transactionEntityList) {
 			Transaction transaction = new Transaction();

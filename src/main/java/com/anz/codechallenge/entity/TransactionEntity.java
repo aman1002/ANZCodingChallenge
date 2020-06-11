@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 import com.anz.codechallenge.models.CurrencyCode;
 import com.anz.codechallenge.models.DebitCredit;
@@ -23,6 +24,7 @@ public class TransactionEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long transactionId;
+	@Pattern(regexp = "[0-9]{9}")
 	private String accountNumber;
 	private String accountName;
 	private LocalDate valueDate;
